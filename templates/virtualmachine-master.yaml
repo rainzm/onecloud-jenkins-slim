@@ -1,0 +1,35 @@
+{{- $vms := .Values.virtualMachines}}
+{{- $name := .Release.Name -}}
+{{- $node := $vms.masterNode -}}
+apiVersion: onecloud.yunion.io/v1
+kind: VirtualMachine
+metadata:
+  name: jk-{{ $name }}-master
+spec:
+  description: Jenkins master node
+  projectConfig:
+    project: {{ $vms.project }}
+  vmConfig:
+    hypervisor: {{ $vms.hypervisor }}
+    vcpuCount: {{ $node.vcpuCount }}
+    vmemSizeGB: {{ $node.vmemSizeGB }}
+    rootDisk:
+      image: Jenkins-CentOS-7.6
+      sizeGB: {{ $node.diskSizeGB }}
+    {{- if $vms.network }}
+    neworks:
+      - network: {{ $vms.network }}
+    {{- end }}
+
+    {{- if $node.eip }}
+    eip: {{ $node.eip }}
+    {{- end }}
+    {{- if or $node.newEipBw $node.newEipChargeType }}
+    newEip:
+      {{- if $node.newEipBw }}
+      bw: {{ $node.newEipBw }}
+      {{- end }}
+      {{- if $node.newEipChargeType }}
+      chargeType: {{ $node.newEipChargeType }}
+      {{- end }}
+    {{- end}}

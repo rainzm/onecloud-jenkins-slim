@@ -1,0 +1,22 @@
+virtualMachines:
+  slaveNodeCount: 2
+  project: system
+  hypervisor: kvm
+  network: ""
+  masterNode:
+    vcpuCount: 2
+    vmemSizeGB: 4
+    diskSizeGB: 30
+    eip: ""
+    newEipBw: ""
+    newEipChargeType: ""
+  slaveNode:
+    vcpuCount: 2
+    vmemSizeGB: 4
+    diskSizeGB: 30
+ansiblePlaybook:
+  jenkinsHostname: localhost
+  jenkinsHttpPort: 8080
+  jenkinsAdminUsername: admin
+  jenkinsAdminPassword: admin
+

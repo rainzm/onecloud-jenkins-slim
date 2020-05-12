@@ -1,0 +1,58 @@
+apiVersion: onecloud.yunion.io/v1
+kind: AnsiblePlaybookTemplate
+metadata:
+  name: jk-{{ .Release.Name }}-pktem-master
+spec:
+  playbook: |
+    - hosts: all
+      become: true
+
+      roles:
+        - role: geerlingguy.java
+        - role: ansible-role-jenkins
+  requirements: |
+    - src: geerlingguy.java
+    - src: https://github.com/yunionio/ansible-role-jenkins
+  vars:
+    - name: jenkins_hostname
+      default: localhost
+    - name: jenkins_http_port
+      default: 8080
+    - name: jenkins_admin_username
+      default: admin
+    - name: jenkins_admin_password
+      default: admin
+
+
+{{- $count := .Values.virtualMachines.slaveNodeCount }}
+{{- if $count }}
+---
+
+apiVersion: onecloud.yunion.io/v1
+kind: AnsiblePlaybookTemplate
+metadata:
+  name: jk-{{ .Release.Name }}-pktem-slave
+spec:
+  playbook: |
+    - hosts: all
+      become: true
+
+      roles:
+        - role: geerlingguy.java
+        - role: ansible-role-jenkins-slave
+  requirements: |
+    - src: geerlingguy.java
+    - src: https://github.com/yunionio/ansible-role-jenkins-slave
+  vars:
+    - name: jenkins_slave_name
+      required: true
+    - name: jenkins_master_hostname
+      required: true
+    - name: jenkins_master_port
+      default: 8080
+    - name: jenkins_master_username
+      default: admin
+    - name: jenkins_master_password
+      default: admin
+
+{{- end }}

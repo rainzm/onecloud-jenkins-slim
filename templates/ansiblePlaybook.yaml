@@ -27,6 +27,7 @@ spec:
 {{- if $count }}
 ---
 
+{{- $namespace := .Release.Namespace }}
 {{- with .Values.ansiblePlaybook }}
 apiVersion: onecloud.yunion.io/v1
 kind: AnsiblePlaybook
@@ -47,7 +48,7 @@ spec:
     jenkins_master_hostname:
       indirect:
         kind: VirtualMachine
-        namespace: onecloud
+        namespace: {{ $namespace }}
         name: jk-{{ $name }}-master
         fieldPath: Status.ExternalInfo.Ips[0]
     jenkins_master_port:

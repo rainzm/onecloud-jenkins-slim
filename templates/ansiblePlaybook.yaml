@@ -1,3 +1,4 @@
+{{- $namespace := .Release.Namespace }}
 {{- $name := .Release.Name }}
 {{- with .Values.ansiblePlaybook }}
 apiVersion: onecloud.yunion.io/v1
@@ -19,6 +20,12 @@ spec:
       direct: {{ .jenkinsAdminUsername }}
     jenkins_admin_password: 
       direct: {{ .jenkinsAdminPassword }}
+    onecloud_vm_id:
+      indirect:
+        kind: VirtualMachine
+        namespace: {{ $namespace }}
+        name: jk-{{ $name }}-master
+        fieldPath: Status.ExternalInfo.Id
   maxRetryTimes: 5
 {{- end}}
 
@@ -27,7 +34,6 @@ spec:
 {{- if $count }}
 ---
 
-{{- $namespace := .Release.Namespace }}
 {{- with .Values.ansiblePlaybook }}
 apiVersion: onecloud.yunion.io/v1
 kind: AnsiblePlaybook

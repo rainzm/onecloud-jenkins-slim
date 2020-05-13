@@ -10,12 +10,32 @@ spec:
   projectConfig:
     project: {{ $vms.project }}
   vmConfig:
+    {{- if $vms.preferManager }} 
+    preferManager: {{ $vms.preferManager }} 
+    {{- end }}
+    {{- if $vms.preferRegion }} 
+    preferRegion: {{ $vms.preferRegion }} 
+    {{- end }}
+    {{- if $vms.preferZone }} 
+    preferZone: {{ $vms.preferZone }} 
+    {{- end }}
+    {{- if $vms.preferHost }} 
+    preferHost: {{ $vms.preferHost }} 
+    {{- end }}
     hypervisor: {{ $vms.hypervisor }}
+    {{- if $node.instanceType }}
+    instanceType: {{ $node.instanceType }}
+    {{- else }}
     vcpuCount: {{ $node.vcpuCount }}
     vmemSizeGB: {{ $node.vmemSizeGB }}
+    {{- end }}
     rootDisk:
-      image: Jenkins-CentOS-7.6
+      image: Jenkins-Telegraf-CentOS-7.6.qcow2
       sizeGB: {{ $node.diskSizeGB }}
+      {{- if $node.storageBackend }} 
+      storageConfig:
+        backend: {{ $node.storageBackend }}
+      {{- end }}
     {{- if $vms.network }}
     neworks:
       - network: {{ $vms.network }}

@@ -1,22 +1,31 @@
 virtualMachines:
   slaveNodeCount: 2
   project: system
+  preferManager: ""
+  preferRegion: ""
+  preferZone: ""
+  preferHost: ""
   hypervisor: kvm
   network: ""
   masterNode:
+    instanceType: ""
     vcpuCount: 2
     vmemSizeGB: 4
     diskSizeGB: 30
+    storageBackend: ""
     eip: ""
     newEipBw: ""
     newEipChargeType: ""
   slaveNode:
+    instanceType: ""
     vcpuCount: 2
     vmemSizeGB: 4
     diskSizeGB: 30
+    storageBackend: ""
 ansiblePlaybook:
   jenkinsHostname: localhost
   jenkinsHttpPort: 8080
   jenkinsAdminUsername: admin
   jenkinsAdminPassword: admin
+  telegrafInfluxdbUrl: ""
 

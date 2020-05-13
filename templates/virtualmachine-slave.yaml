@@ -13,11 +13,19 @@ spec:
     project: {{ $vms.project }}
   vmConfig:
     hypervisor: {{ $vms.hypervisor }}
+    {{- if $node.instanceType }}
+    instanceType: {{ $node.instanceType }}
+    {{- else }}
     vcpuCount: {{ $node.vcpuCount }}
     vmemSizeGB: {{ $node.vmemSizeGB }}
+    {{- end }}
     rootDisk:
-      image: CentOS-7.6.1810-20190430.qcow2
+      image: Java-CentOS-7.6.qcow2
       sizeGB: {{ $node.diskSizeGB }}
+      {{- if $node.storageBackend }} 
+      storageConfig:
+        backend: {{ $node.storageBackend }}
+      {{- end }}
     {{- if $vms.network }}
     neworks:
       - network: {{ $vms.network }}

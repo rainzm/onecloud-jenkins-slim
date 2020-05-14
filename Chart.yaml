@@ -1,6 +1,7 @@
 apiVersion: v2
 name: onecloud-jenkins-slim
-description: A Helm chart for Kubernetes
+description: A Helm chart for Jenkins on Onecloud
+icon: https://wiki.jenkins-ci.org/download/attachments/2916393/logo.png
 
 # A chart can be either an 'application' or a 'library' chart.
 #

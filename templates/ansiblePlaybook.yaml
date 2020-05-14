@@ -13,13 +13,13 @@ spec:
         name: jk-{{ $name }}-master
   vars:
     jenkins_hostname: 
-      direct: {{ .jenkinsHostname }}
+      direct: {{ .jenkins.hostname }}
     jenkins_http_port:  
-      direct: {{ .jenkinsHttpPort }}
+      direct: {{ .jenkins.httpPort }}
     jenkins_admin_username: 
-      direct: {{ .jenkinsAdminUsername }}
+      direct: {{ .jenkins.adminUsername }}
     jenkins_admin_password: 
-      direct: {{ .jenkinsAdminPassword }}
+      direct: {{ .jenkins.adminPassword }}
     onecloud_vm_id:
       indirect:
         kind: VirtualMachine
@@ -58,10 +58,10 @@ spec:
         name: jk-{{ $name }}-master
         fieldPath: Status.ExternalInfo.Ips[0]
     jenkins_master_port:
-      direct: {{ .jenkinsHttpPort }}
+      direct: {{ .jenkins.httpPort }}
     jenkins_master_username:
-      direct: {{ .jenkinsAdminUsername }}
+      direct: {{ .jenkins.adminUsername }}
     jenkins_master_password:
-      direct: {{ .jenkinsAdminPassword }}
+      direct: {{ .jenkins.adminPassword }}
 {{- end }}
 {{- end }}

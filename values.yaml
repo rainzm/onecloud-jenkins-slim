@@ -20,10 +20,12 @@ virtualMachines:
     image: CentOS-CI-7.7.20191211
     storageBackend: standard_lrs
 ansiblePlaybook:
-  jenkinsHostname: localhost
-  jenkinsHttpPort: 8080
-  jenkinsAdminUsername: admin
-  jenkinsAdminPassword: admin
-  telegrafInfluxdbUrl: https://cmp.chinaeast2.cloudapp.chinacloudapi.cn:30086
-  telegrafInfluxdbName: telegraf
+  jenkins:
+    hostname: localhost
+    httpPort: 8080
+    adminUsername: admin
+    adminPassword: admin
+  telegraf:
+    influxdbUrl: https://cmp.chinaeast2.cloudapp.chinacloudapi.cn:30086
+    influxdbName: telegraf
 

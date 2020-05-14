@@ -18,15 +18,15 @@ spec:
         telegraf_agent_output:
           - type: influxdb
             config:
-              - urls = ["{{ .Values.ansiblePlaybook.telegrafInfluxdbUrl }}"]
-              - database = "{{ .Values.ansiblePlaybook.telegrafInfluxdbName }}"
+              - urls = ["{{ .Values.ansiblePlaybook.telegraf.influxdbUrl }}"]
+              - database = "{{ .Values.ansiblePlaybook.telegraf.influxdbName }}"
               - insecure_skip_verify = true
         telegraf_plugins_default:
           - plugin: jenkins
             config:
-              - url = "http://{{ .Values.ansiblePlaybook.jenkinsHostname }}:{{ .Values.ansiblePlaybook.jenkinsHttpPort }}"
-              - username = "{{ .Values.ansiblePlaybook.jenkinsAdminUsername }}"
-              - password = "{{ .Values.ansiblePlaybook.jenkinsAdminPassword }}"
+              - url = "http://{{ .Values.ansiblePlaybook.jenkins.hostname }}:{{ .Values.ansiblePlaybook.jenkins.httpPort }}"
+              - username = "{{ .Values.ansiblePlaybook.jenkins.adminUsername }}"
+              - password = "{{ .Values.ansiblePlaybook.jenkins.adminPassword }}"
               - response_timeout = "5s"
 
       roles:

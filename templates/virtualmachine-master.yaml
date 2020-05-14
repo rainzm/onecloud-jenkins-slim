@@ -8,7 +8,7 @@ metadata:
 spec:
   description: Jenkins master node
   projectConfig:
-    project: {{ $vms.project }}
+    project: {{ .Values.project }}
   vmConfig:
     {{- if $vms.preferManager }} 
     preferManager: {{ $vms.preferManager }} 
@@ -30,26 +30,23 @@ spec:
     vmemSizeGB: {{ $node.vmemSizeGB }}
     {{- end }}
     rootDisk:
-      image: Jenkins-Telegraf-CentOS-7.6.qcow2
+      image: {{ $node.image }}
       sizeGB: {{ $node.diskSizeGB }}
       {{- if $node.storageBackend }} 
       storageConfig:
         backend: {{ $node.storageBackend }}
       {{- end }}
     {{- if $vms.network }}
-    neworks:
+    networks:
       - network: {{ $vms.network }}
     {{- end }}
 
-    {{- if $node.eip }}
-    eip: {{ $node.eip }}
+  {{- if or $vms.newEipBw $vms.newEipChargeType }}
+  newEip:
+    {{- if $vms.newEipBw }}
+    bw: {{ $vms.newEipBw }}
     {{- end }}
-    {{- if or $node.newEipBw $node.newEipChargeType }}
-    newEip:
-      {{- if $node.newEipBw }}
-      bw: {{ $node.newEipBw }}
-      {{- end }}
-      {{- if $node.newEipChargeType }}
-      chargeType: {{ $node.newEipChargeType }}
-      {{- end }}
-    {{- end}}
+    {{- if $vms.newEipChargeType }}
+    chargeType: {{ $vms.newEipChargeType }}
+    {{- end }}
+  {{- end}}

@@ -1,5 +1,6 @@
 {{- $vms := .Values.virtualMachines}}
 {{- $name := .Release.Name -}}
+{{- $project := .Values.project }}
 {{- $node := $vms.slaveNode -}}
 {{- $count := $vms.slaveNodeCount -}}
 {{- range $i, $e := until ($count | int) }}
@@ -10,8 +11,20 @@ metadata:
 spec:
   description: Jenkins slave node No.{{ add $e 1 }}
   projectConfig:
-    project: {{ $vms.project }}
+    project: {{ $project }}
   vmConfig:
+    {{- if $vms.preferManager }} 
+    preferManager: {{ $vms.preferManager }} 
+    {{- end }}
+    {{- if $vms.preferRegion }} 
+    preferRegion: {{ $vms.preferRegion }} 
+    {{- end }}
+    {{- if $vms.preferZone }} 
+    preferZone: {{ $vms.preferZone }} 
+    {{- end }}
+    {{- if $vms.preferHost }} 
+    preferHost: {{ $vms.preferHost }} 
+    {{- end }}
     hypervisor: {{ $vms.hypervisor }}
     {{- if $node.instanceType }}
     instanceType: {{ $node.instanceType }}
@@ -20,16 +33,25 @@ spec:
     vmemSizeGB: {{ $node.vmemSizeGB }}
     {{- end }}
     rootDisk:
-      image: Java-CentOS-7.6.qcow2
+      image: {{ $node.image }}
       sizeGB: {{ $node.diskSizeGB }}
       {{- if $node.storageBackend }} 
       storageConfig:
         backend: {{ $node.storageBackend }}
       {{- end }}
     {{- if $vms.network }}
-    neworks:
+    networks:
       - network: {{ $vms.network }}
     {{- end }}
+  {{- if or $vms.newEipBw $vms.newEipChargeType }}
+  newEip:
+    {{- if $vms.newEipBw }}
+    bw: {{ $vms.newEipBw }}
+    {{- end }}
+    {{- if $vms.newEipChargeType }}
+    chargeType: {{ $vms.newEipChargeType }}
+    {{- end }}
+  {{- end}}
 
 ---
 

@@ -8,6 +8,9 @@ spec:
       become: true
 
       vars:
+        jenkins_plugins:
+          - swarm
+        jenkins_version: "2.204"
         telegraf_agent_hostname: jk-{{ .Release.Name }}-master
         telegraf_global_tags:
           - tag_name: release_name

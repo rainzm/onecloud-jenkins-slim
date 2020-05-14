@@ -1,26 +1,27 @@
+project: system
 virtualMachines:
   slaveNodeCount: 2
-  project: system
   preferManager: ""
   preferRegion: ""
   preferZone: ""
   preferHost: ""
   hypervisor: kvm
+  newEipBw: ""
+  newEipChargeType: ""
   network: ""
   masterNode:
     instanceType: ""
     vcpuCount: 2
     vmemSizeGB: 4
     diskSizeGB: 30
+    image: CentOS-CI-7.7.20191211
     storageBackend: ""
-    eip: ""
-    newEipBw: ""
-    newEipChargeType: ""
   slaveNode:
     instanceType: ""
     vcpuCount: 2
     vmemSizeGB: 4
     diskSizeGB: 30
+    image: CentOS-CI-7.7.20191211
     storageBackend: ""
 ansiblePlaybook:
   jenkinsHostname: localhost

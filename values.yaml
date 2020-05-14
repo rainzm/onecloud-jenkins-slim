@@ -1,32 +1,29 @@
-project: system
+project: softcode-proj
 virtualMachines:
   slaveNodeCount: 2
   preferManager: ""
-  preferRegion: ""
-  preferZone: ""
+  preferRegion: 微软 China North
+  preferZone: 微软 China North
   preferHost: ""
-  hypervisor: kvm
-  newEipBw: ""
-  newEipChargeType: ""
-  network: ""
+  hypervisor: azure
+  newEipBw: 100
+  newEipChargeType: traffic
+  network: default-1
   masterNode:
-    instanceType: ""
-    vcpuCount: 2
-    vmemSizeGB: 4
-    diskSizeGB: 30
+    instanceType: Basic_A1
+    diskSizeGB: 40
     image: CentOS-CI-7.7.20191211
-    storageBackend: ""
+    storageBackend: standard_lrs
   slaveNode:
-    instanceType: ""
-    vcpuCount: 2
-    vmemSizeGB: 4
+    instanceType: Basic_A1
     diskSizeGB: 30
     image: CentOS-CI-7.7.20191211
-    storageBackend: ""
+    storageBackend: standard_lrs
 ansiblePlaybook:
   jenkinsHostname: localhost
   jenkinsHttpPort: 8080
   jenkinsAdminUsername: admin
   jenkinsAdminPassword: admin
-  telegrafInfluxdbUrl: ""
+  telegrafInfluxdbUrl: https://cmp.chinaeast2.cloudapp.chinacloudapi.cn:30086
+  telegrafInfluxdbName: telegraf
 

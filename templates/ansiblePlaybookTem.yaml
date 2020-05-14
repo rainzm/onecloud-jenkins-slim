@@ -19,7 +19,7 @@ spec:
           - type: influxdb
             config:
               - urls = ["{{ .Values.ansiblePlaybook.telegrafInfluxdbUrl }}"]
-              - database = "jenkins"
+              - database = "{{ .Values.ansiblePlaybook.telegrafInfluxdbName }}"
               - insecure_skip_verify = true
         telegraf_plugins_default:
           - plugin: jenkins
